@@ -24,7 +24,10 @@ export default function App() {
   useEffect(() => {
     listTodos();
   }, []);
-
+    
+  function deleteTodo(id: string) {
+    client.models.Todo.delete({ id })
+  }
   function createTodo() {
     client.models.Todo.create({
       content: window.prompt("Todo content"),
@@ -37,7 +40,9 @@ export default function App() {
       <button onClick={createTodo}>+ new</button>
       <ul>
         {todos.map((todo) => (
-          <li key={todo.id}>{todo.content}</li>
+          <li 
+            onClick={() => deleteTodo(todo.id)}
+            key={todo.id}>{todo.content}</li>
         ))}
       </ul>
       <div>
